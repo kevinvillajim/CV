@@ -64,7 +64,7 @@ function App() {
                 <div className="cover-bg p-3 p-lg-4 text-white">
                     <div className="row">
                         <div className="col-lg-4 col-md-5">
-                            <div className="avatar hover-effect shadow-lg p-1"><img src="/images/fotoCv.png" height="200" className="shadow-lg bg-white"/></div>
+                            <div className="avatar hover-effect shadow-lg p-1"><img src="images/fotoCv.png" height="200" className="shadow-lg bg-white"/></div>
                         </div>
                         <div className="col-lg-8 col-md-7 text-center text-md-start">
                             <h2 className="h1 mt-2">Kevin Villacreses</h2>
@@ -92,8 +92,8 @@ function App() {
                 <div className="skills-section px-3 px-lg-4">
                     <h2 className="h3 mb-3">Habilidades Profesionales</h2>
                     <div className="row">
-                        <SkillsImg img={["/images/icons/HTML5.png", "/images/icons/CSS.png", "/images/icons/JS.png", "/images/icons/BS.png", "/images/icons/REACT.png", "/images/icons/WP.png"]}/>
-                        <SkillsImg img={["/images/icons/PS.png", "/images/icons/ILL.png", "/images/icons/PP.png", "/images/icons/SKU.png"]}/>
+                        <SkillsImg img={["images/icons/HTML5.png", "images/icons/CSS.png", "images/icons/JS.png", "images/icons/BS.png", "images/icons/REACT.png", "images/icons/WP.png"]}/>
+                        <SkillsImg img={["images/icons/PS.png", "images/icons/ILL.png", "images/icons/PP.png", "images/icons/SKU.png"]}/>
                         {skills.map((item, index) => (
                         <SkillsImg key={index} img={[item.img]} />
                         ))}
