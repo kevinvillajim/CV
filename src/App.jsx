@@ -92,8 +92,8 @@ function App() {
                 <div className="skills-section px-3 px-lg-4">
                     <h2 className="h3 mb-3">Habilidades Profesionales</h2>
                     <div className="row">
-                        <SkillsImg img={["images/icons/HTML5.png", "images/icons/CSS.png", "images/icons/JS.png", "images/icons/BS.png", "images/icons/REACT.png", "images/icons/WP.png"]}/>
-                        <SkillsImg img={["images/icons/PS.png", "images/icons/ILL.png", "images/icons/PP.png", "images/icons/SKU.png"]}/>
+                        <SkillsImg img={["https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/HTML5.png", "https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/CSS.png", "https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/JS.png", "https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/BS.png", "https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/REACT.png", "https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/WP.png"]}/>
+                        <SkillsImg img={["https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/PS.png", "https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/ILL.png", "https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/PP.png", "https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/SKU.png"]}/>
                         {skills.map((item, index) => (
                         <SkillsImg key={index} img={[item.img]} />
                         ))}
