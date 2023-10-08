@@ -64,7 +64,7 @@ function App() {
                 <div className="cover-bg p-3 p-lg-4 text-white">
                     <div className="row">
                         <div className="col-lg-4 col-md-5">
-                            <div className="avatar hover-effect shadow-lg p-1"><img src="images/fotoCv.png" height="200" className="shadow-lg bg-white"/></div>
+                            <div className="avatar hover-effect shadow-lg p-1"><img src="https://raw.githubusercontent.com/kevinvillajim/CV/main/images/fotoCv.png" height="200" className="shadow-lg bg-white"/></div>
                         </div>
                         <div className="col-lg-8 col-md-7 text-center text-md-start">
                             <h2 className="h1 mt-2">Kevin Villacreses</h2>
