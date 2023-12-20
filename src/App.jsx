@@ -285,7 +285,7 @@ function App() {
 									content={
 										<img
 											src="https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/CISCO.png"
-											height="20px"
+											height="100px"
 											alt="Cisco Certification"
 										/>
 									}
