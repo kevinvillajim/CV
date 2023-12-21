@@ -74,6 +74,17 @@ function App() {
 								<div className="col-lg-8 col-md-7 text-center text-md-start">
 									<h2 className="h1 mt-2">Kevin Villacreses</h2>
 									<p>Desarrollador Full Stack & Diseñador Gráfico</p>
+									<a
+										href="https://github.com/kevinvillajim"
+										target="_blank"
+										rel="noreferrer"
+									>
+										<img
+											src="https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/GH.svg"
+											height="30px"
+											alt="GitHub Icon"
+										/>
+									</a>
 								</div>
 							</div>
 						</div>
