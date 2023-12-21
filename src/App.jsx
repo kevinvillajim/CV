@@ -78,6 +78,7 @@ function App() {
 										href="https://github.com/kevinvillajim"
 										target="_blank"
 										rel="noreferrer"
+										className="btn btn-outline-dark rounded-pill px-2 py-2 me-2 border-white"
 									>
 										<img
 											src="https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/GH.svg"
