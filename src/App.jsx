@@ -75,18 +75,6 @@ function App() {
 									<h2 className="h1 mt-2">Kevin Villacreses</h2>
 									<p>Desarrollador Full Stack & Diseñador Gráfico</p>
 									<a
-										href="https://github.com/kevinvillajim"
-										target="_blank"
-										rel="noreferrer"
-										className="btn btn-outline-dark rounded-pill px-2 py-2 me-2 border-white"
-									>
-										<img
-											src="https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/GH.svg"
-											height="30px"
-											alt="GitHub Icon"
-										/>
-									</a>
-									<a
 										href="https://kevinvillajim.github.io/Portfolio/"
 										target="_blank"
 										rel="noreferrer"
@@ -96,6 +84,18 @@ function App() {
 											src="https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/PF.png"
 											height="30px"
 											alt="Portfolio Icon"
+										/>
+									</a>
+									<a
+										href="https://github.com/kevinvillajim"
+										target="_blank"
+										rel="noreferrer"
+										className="btn btn-outline-dark rounded-pill px-2 py-2 me-2 border-white"
+									>
+										<img
+											src="https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/GH.svg"
+											height="30px"
+											alt="GitHub Icon"
 										/>
 									</a>
 								</div>
