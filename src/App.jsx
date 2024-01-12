@@ -86,6 +86,18 @@ function App() {
 											alt="GitHub Icon"
 										/>
 									</a>
+									<a
+										href="https://kevinvillajim.github.io/Portfolio/"
+										target="_blank"
+										rel="noreferrer"
+										className="btn btn-outline-dark rounded-pill px-2 py-2 me-2 border-white"
+									>
+										<img
+											src="https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/PF.png"
+											height="30px"
+											alt="Portfolio Icon"
+										/>
+									</a>
 								</div>
 							</div>
 						</div>
