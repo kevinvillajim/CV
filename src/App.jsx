@@ -193,10 +193,10 @@ function App() {
 										"https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/ILL.png",
 										"https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/PP.png",
 										"https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/SKU.png",
-										"https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/ACpng",
-										"https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/ACADpng",
-										"https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/PBpng",
-										"https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/FLpng",
+										"https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/AC.png",
+										"https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/ACAD.webp",
+										"https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/PB.png",
+										"https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/FL.png",
 									]}
 								/>
 								{skills.map((item, index) => (
