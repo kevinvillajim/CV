@@ -1,9 +1,9 @@
 const translationEN = {
-	errorExperience: "Por favor, ingrese todos los valores requeridos.",
-	errorStudy: "Por favor, ingrese todos los valores requeridos.",
+	errorExperience: "Please, enter all the required values.",
+	errorStudy: "Please, enter all the required values.",
 	titleDescription: "Full Stack Developer & Graphic Designer",
 	titleMe: "About Me",
-	me: "Hi!, my name is Kevin VIllacreses, I'm 27. Since 13 I leanrned graphic design and aplied it, now I take advantage that knowledge to complement it in Web and App Development.",
+	me: "Hi!, my name is Kevin VIllacreses, I'm 27. Since 13 I learned graphic design and aplied it, now I take advantage that knowledge to complement it in Web and App Development.",
 	titleAge: "Age:",
 	titleTelephone: "Phone:",
 	titleAddress: "Address:",

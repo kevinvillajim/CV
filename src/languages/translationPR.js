@@ -1,6 +1,6 @@
 const translationPR = {
-	errorExperience: "Por favor, ingrese todos los valores requeridos.",
-	errorStudy: "Por favor, ingrese todos los valores requeridos.",
+	errorExperience: "Por favor, insira todos os valores necessários.",
+	errorStudy: "Por favor, insira todos os valores necessários.",
 	titleDescription: "Desenvolvedor Full Stack & Designer Gráfico",
 	titleMe: "Sobre mim",
 	me: "Holá!, meu nome é Kevin VIllacreses, tenho 27 anos. Desde os 13 anos me dedico ao design gráfico, agora aplico meus conhecimentos para complementá-lo, em Desenvolvimento Web e Aplicações.",
