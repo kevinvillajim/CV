@@ -84,62 +84,68 @@ function App() {
 								<div className="col-lg-8 col-md-7 text-center text-md-start">
 									<h2 className="h1 mt-2">Kevin Villacreses</h2>
 									<p>{translations.titleDescription}</p>
-									<a
-										href="https://kevinvillajim.github.io/Portfolio/"
-										target="_blank"
-										rel="noreferrer"
-										className="btn btn-outline-dark rounded-pill px-2 py-2 me-2 border-white"
-									>
-										<img
-											src="https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/PF.png"
-											height="30px"
-											alt="Portfolio Icon"
-										/>
-									</a>
-									<a
-										href="https://github.com/kevinvillajim"
-										target="_blank"
-										rel="noreferrer"
-										className="btn btn-outline-dark rounded-pill px-2 py-2 me-2 border-white"
-									>
-										<img
-											src="https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/GH.svg"
-											height="30px"
-											alt="GitHub Icon"
-										/>
-									</a>
-									<button
-										className="btn btn-outline-dark rounded-pill px-2.5 py-2 me-2 border-white text-white"
-										onClick={() => {
-											setLanguage(
-												language === "ES"
-													? "EN"
-													: language === "EN"
-													? "PR"
-													: "ES"
-											);
-										}}
-									>
-										{language === "ES" ? (
-											<img
-												src="https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/ES.png"
-												height="30px"
-												alt="ES Language"
-											/>
-										) : language === "EN" ? (
-											<img
-												src="https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/EN.png"
-												height="30px"
-												alt="EN Language"
-											/>
-										) : (
-											<img
-												src="https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/PR.png"
-												height="30px"
-												alt="PR Language"
-											/>
-										)}
-									</button>
+									<div className="d-flex justify-content-between align-items-center">
+										<div>
+											<a
+												href="https://kevinvillajim.github.io/Portfolio/"
+												target="_blank"
+												rel="noreferrer"
+												className="btn btn-outline-dark rounded-pill px-2 py-2 me-2 border-white"
+											>
+												<img
+													src="https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/PF.png"
+													height="30px"
+													alt="Portfolio Icon"
+												/>
+											</a>
+											<a
+												href="https://github.com/kevinvillajim"
+												target="_blank"
+												rel="noreferrer"
+												className="btn btn-outline-dark rounded-pill px-2 py-2 me-2 border-white"
+											>
+												<img
+													src="https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/GH.svg"
+													height="30px"
+													alt="GitHub Icon"
+												/>
+											</a>
+										</div>
+										<div>
+											<button
+												className="btn btn-outline-dark rounded-pill px-2 py-2 me-2 border-white text-white"
+												onClick={() => {
+													setLanguage(
+														language === "ES"
+															? "EN"
+															: language === "EN"
+															? "PR"
+															: "ES"
+													);
+												}}
+											>
+												{language === "ES" ? (
+													<img
+														src="https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/ES.png"
+														height="45px"
+														alt="ES Language"
+													/>
+												) : language === "EN" ? (
+													<img
+														src="https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/EN.png"
+														height="45px"
+														alt="EN Language"
+													/>
+												) : (
+													<img
+														src="https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/PR.png"
+														height="45px"
+														alt="PR Language"
+													/>
+												)}
+											</button>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
