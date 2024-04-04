@@ -75,9 +75,9 @@ function App() {
 								<div className="col-lg-4 col-md-5">
 									<div className="avatar hover-effect shadow-lg p-1">
 										<img
-											src="https://raw.githubusercontent.com/kevinvillajim/CV/main/images/fotoCv.jpeg"
-											height="200"
-											className="shadow-lg bg-white"
+											src="https://raw.githubusercontent.com/kevinvillajim/CV/main/images/fotoCv.png"
+											height="160"
+											className="shadow-lg bg-white object-cover"
 										/>
 									</div>
 								</div>
