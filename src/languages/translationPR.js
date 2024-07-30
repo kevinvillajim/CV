@@ -3,7 +3,7 @@ const translationPR = {
 	errorStudy: "Por favor, insira todos os valores necessários.",
 	titleDescription: "Desenvolvedor Full Stack & Designer Gráfico",
 	titleMe: "Sobre mim",
-	me: "Holá!, meu nome é Kevin VIllacreses, tenho 27 anos. Desde os 13 anos me dedico ao design gráfico, agora aplico meus conhecimentos para complementá-lo, em Desenvolvimento Web e Aplicações.",
+	me: "Olá! Eu sou Kevin Villacreses, tenho 28 anos. Sou apaixonado por tecnologia, atualmente estudante de Sistemas na BYU Idaho (EUA). Desde os 13 anos, dedico-me ao design gráfico e, desde os 17 anos, faço isso profissionalmente. Atualmente, estou complementando esses conhecimentos com Sistemas, Desenvolvimento Web e Desenvolvimento de Aplicações.",
 	titleAge: "Edade:",
 	titleTelephone: "Telefone:",
 	titleAddress: "Endereço:",
@@ -12,12 +12,11 @@ const translationPR = {
 	buttonSkill: "Adicionar Habilidade",
 	titleExperience: "Experiência de Trabalho",
 
-	firstJob: "Contratante",
-	firstCompany: "Tejido Arquitectónico - Eco Domotic Home",
-	firstTime: "02/2022 - Atual",
+	firstJob: "Desenvolvedor Full Stack",
+	firstCompany: "Esparta Agência Criativa",
+	firstTime: "05/2023 - Atual",
 	firstContent:
-		"Tarefas realizadas: -Projetos arquitetônicos -Supervisão de obra -Publicidade e imagem corporativa -Orçamentos e proformas -Segurança eletrônica -Controle de acessos -Sistemas integrados de segurança.",
-
+		"Tarefas realizadas: - Desenvolvimento de sites e aplicações web, tanto em código quanto com WordPress - Design UI e UX - Desenvolvimento FrontEnd (React) - Desenvolvimento Backend (Laravel).",
 	secondJob: "Designer Gráfico",
 	secondCompany: "Agência Criativa Esparta",
 	secondTime: "06/2019 - 09/2021",
@@ -51,6 +50,10 @@ const translationPR = {
 
 	buttonExperience: "Adicionar Experiência de Trabalho",
 	titleEducation: "Educação",
+
+	fifthStudy: "Bachelor Degree (Systems and IT)",
+	fifthInstitution: "BYU Idaho",
+	fifthSTime: "Actual - 2027",
 
 	firstStudy: "Técnico em Desenvolvimento Full Stack",
 	firstInstitution: "FUNVAL Internacional",

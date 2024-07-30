@@ -157,7 +157,7 @@ function App() {
 								</div>
 								<div className="col-md-5 offset-md-1">
 									<div className="row mt-2">
-										<InfoPrint proper={translations.titleAge} answer="27" />
+										<InfoPrint proper={translations.titleAge} answer="28" />
 										<InfoPrint
 											proper="Email:"
 											answer="kevinvillajim@hotmail.com"
@@ -168,7 +168,7 @@ function App() {
 										/>
 										<InfoPrint
 											proper={translations.titleAddress}
-											answer="5 Esquinas, Quito, Ecuador"
+											answer="Ferroviaria, Quito, Ecuador"
 										/>
 									</div>
 								</div>
@@ -344,6 +344,13 @@ function App() {
 						<div className="education-section px-3 px-lg-4 pb-4">
 							<h2 className="h3 mb-4">{translations.titleEducation}</h2>
 							<div className="timeline">
+								<ExpCards
+									color="success"
+									job={translations.fifthStudy}
+									company={translations.fifthInstitution}
+									time={translations.fifthSTime}
+									content=""
+								/>
 								<ExpCards
 									color="success"
 									job={translations.firstStudy}

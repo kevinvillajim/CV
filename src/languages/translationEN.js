@@ -3,7 +3,7 @@ const translationEN = {
 	errorStudy: "Please, enter all the required values.",
 	titleDescription: "Full Stack Developer & Graphic Designer",
 	titleMe: "About Me",
-	me: "Hi!, my name is Kevin VIllacreses, I'm 27. Since 13 I learned graphic design and aplied it, now I take advantage that knowledge to complement it in Web and App Development.",
+	me: "Hi! I'm Kevin Villacreses, I'm 28 years old. I am passionate about technology and currently a Systems student at BYU Idaho (USA). Since I was 13, I have been dedicated to graphic design, and I have been doing it professionally since I was 17. Currently, I am complementing this knowledge with Systems, Web Development, and Application Development.",
 	titleAge: "Age:",
 	titleTelephone: "Phone:",
 	titleAddress: "Address:",
@@ -12,11 +12,11 @@ const translationEN = {
 	buttonSkill: "Add Skill",
 	titleExperience: "Work Experience",
 
-	firstJob: "Contractor",
-	firstCompany: "Tejido Arquitectónico - Eco Domotic Home",
-	firstTime: "02/2022 - Present",
+	firstJob: "Full Stack Developer",
+	firstCompany: "Esparta Agencia Creativa",
+	firstTime: "05/2023 - Present",
 	firstContent:
-		"Tasks performed: -Architectural projects -Site supervision -Advertising and corporate image -Budgets and proforma -Electronic security -Access control -Integrated security systems.",
+		"Tasks performed: - Development of websites and web applications, both in code and with WordPress - UI and UX design - FrontEnd development (React) - Backend development (Laravel).",
 
 	secondJob: "Graphic Designer",
 	secondCompany: "Sparta Creative Agency",
@@ -51,6 +51,10 @@ const translationEN = {
 
 	buttonExperience: "Add Work Experience",
 	titleEducation: "Education",
+
+	fifthStudy: "Bachelor Degree (Systems and IT)",
+	fifthInstitution: "BYU Idaho",
+	fifthSTime: "Actual - 2027",
 
 	firstStudy: "Full Stack Development Technician",
 	firstInstitution: "FUNVAL International",
