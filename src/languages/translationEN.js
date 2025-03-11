@@ -54,7 +54,7 @@ const translationEN = {
 
 	fifthStudy: "Bachelor Degree (Systems and IT)",
 	fifthInstitution: "BYU Idaho",
-	fifthSTime: "Actual - 2027",
+	fifthSTime: "2023 - 2027 (Actual)",
 
 	firstStudy: "Full Stack Development Technician",
 	firstInstitution: "FUNVAL International",

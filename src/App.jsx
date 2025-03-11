@@ -183,14 +183,20 @@ function App() {
 										"https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/HTML5.png",
 										"https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/CSS.png",
 										"https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/JS.png",
+										"https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/PHP.png",
+										"https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/PY.png",
+										"https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/C%23.svg",
+										"https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/NODE.png",
 										"https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/BS.png",
 										"https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/REACT.png",
 										"https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/WP.png",
-										"https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/PHP.png",
 										"https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/MYSQL.png",
+										"https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/PSQL.png",
+										"https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/MDB.png",
 										"https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/TW.svg",
 										"https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/LV.png",
 										"https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/GH.png",
+										"https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/FIGMA.png",
 									]}
 								/>
 								<SkillsImg
