@@ -88,6 +88,7 @@ function App() {
 										<div>
 											<a
 												href="https://kevinvillajim.github.io/Portfolio/"
+												title="Mi Portfolio"
 												target="_blank"
 												rel="noreferrer"
 												className="btn btn-outline-dark rounded-pill px-2 py-2 me-2 border-white"
@@ -100,6 +101,7 @@ function App() {
 											</a>
 											<a
 												href="https://github.com/kevinvillajim"
+												title="Github"
 												target="_blank"
 												rel="noreferrer"
 												className="btn btn-outline-dark rounded-pill px-2 py-2 me-2 border-white"
@@ -126,18 +128,21 @@ function App() {
 											>
 												{language === "ES" ? (
 													<img
+														title="Cambia de Idioma"
 														src="https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/ES.png"
 														height="45px"
 														alt="ES Language"
 													/>
 												) : language === "EN" ? (
 													<img
+														title="Change the language"
 														src="https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/EN.png"
 														height="45px"
 														alt="EN Language"
 													/>
 												) : (
 													<img
+														title="Troca o idioma"
 														src="https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/PR.png"
 														height="45px"
 														alt="PR Language"
@@ -198,6 +203,25 @@ function App() {
 										"https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/GH.png",
 										"https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/FIGMA.png",
 									]}
+									title={[
+										"HTML",
+										"CSS",
+										"Javascript",
+										"PHP",
+										"Python",
+										"C#",
+										"NodeJS",
+										"Bootstrap",
+										"React",
+										"Wordpress",
+										"MySQL",
+										"PostgreSQL",
+										"MongoDB",
+										"Tailwind",
+										"Laravel",
+										"GitHub",
+										"Figma",
+									]}
 								/>
 								<SkillsImg
 									img={[
@@ -210,9 +234,19 @@ function App() {
 										"https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/PB.png",
 										"https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/FL.png",
 									]}
+									title={[
+										"Photoshop",
+										"Illustrador",
+										"PremierePro",
+										"SketchUp",
+										"ArchiCAD",
+										"AutoCAD",
+										"PolyBoard",
+										"FLStudio",
+									]}
 								/>
 								{skills.map((item, index) => (
-									<SkillsImg key={index} img={[item.img]} />
+									<SkillsImg title={[item.title]} key={index} img={[item.img]} />
 								))}
 								<button
 									className={`btn-add ${visible ? "active" : ""}`}
