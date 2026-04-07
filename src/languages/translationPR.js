@@ -3,7 +3,7 @@ const translationPR = {
 	errorStudy: "Por favor, insira todos os valores necessários.",
 	titleDescription: "Desenvolvedor Full Stack & Designer Gráfico",
 	titleMe: "Sobre mim",
-	me: "Olá! Eu sou Kevin Villacreses, tenho 28 anos. Sou apaixonado por tecnologia, atualmente estudante de Sistemas na BYU Idaho (EUA). Desde os 13 anos, dedico-me ao design gráfico e, desde os 17 anos, faço isso profissionalmente. Atualmente, estou complementando esses conhecimentos com Sistemas, Desenvolvimento Web e Desenvolvimento de Aplicações.",
+	me: "Olá! Eu sou Kevin Villacreses, tenho {{age}} anos. Sou apaixonado por tecnologia, atualmente estudante de Sistemas na BYU Idaho (EUA). Desde os 13 anos, dedico-me ao design gráfico e, desde os 17 anos, faço isso profissionalmente. Atualmente, estou complementando esses conhecimentos com Sistemas, Desenvolvimento Web e Desenvolvimento de Aplicações.",
 	titleAge: "Edade:",
 	titleTelephone: "Telefone:",
 	titleAddress: "Endereço:",

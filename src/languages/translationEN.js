@@ -3,7 +3,7 @@ const translationEN = {
 	errorStudy: "Please, enter all the required values.",
 	titleDescription: "Full Stack Developer & Graphic Designer",
 	titleMe: "About Me",
-	me: "Hi! I'm Kevin Villacreses, I'm 28 years old. I am passionate about technology and currently a Systems student at BYU Idaho (USA). Since I was 13, I have been dedicated to graphic design, and I have been doing it professionally since I was 17. Currently, I am complementing this knowledge with Systems, Web Development, and Application Development.",
+	me: "Hi! I'm Kevin Villacreses, I'm {{age}} years old. I am passionate about technology and currently a Systems student at BYU Idaho (USA). Since I was 13, I have been dedicated to graphic design, and I have been doing it professionally since I was 17. Currently, I am complementing this knowledge with Systems, Web Development, and Application Development.",
 	titleAge: "Age:",
 	titleTelephone: "Phone:",
 	titleAddress: "Address:",

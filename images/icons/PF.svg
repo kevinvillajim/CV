@@ -1,0 +1,32 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+>
+  <rect
+    x="3"
+    y="4.5"
+    width="18"
+    height="15"
+    rx="3"
+    stroke="currentColor"
+    stroke-width="1.7"
+  />
+  <path
+    d="M3 9h18"
+    stroke="currentColor"
+    stroke-width="1.7"
+    stroke-linecap="round"
+  />
+  <circle cx="6.25" cy="6.8" r="0.85" fill="currentColor" />
+  <circle cx="9.2" cy="6.8" r="0.85" fill="currentColor" />
+  <path
+    d="M7.25 15.75L10.25 12.75L12.65 15.15L16.75 11.25"
+    stroke="currentColor"
+    stroke-width="1.7"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+</svg>

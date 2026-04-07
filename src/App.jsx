@@ -1,500 +1,303 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import "./App.css";
-import {ExpCards, InfoPrint, SkillsImg} from "./functions";
-import translationES from "./languages/translationES";
-import translationEN from "./languages/translationEN";
-import translationPR from "./languages/translationPR";
+import defaultResume from "./defaultResume";
+import {
+	clearToken,
+	fetchAdminResume,
+	fetchCurrentUser,
+	fetchResume,
+	loadToken,
+	login,
+	saveToken,
+	updateResume,
+} from "./api";
+import {
+	adminCopy,
+	cloneResume,
+	getCurrentRoute,
+	goTo,
+	ROUTES,
+} from "./app/constants";
+import AdminDashboard from "./app/AdminDashboard";
+import LoginScreen from "./app/LoginScreen";
+import PublicResume from "./app/PublicResume";
 
 function App() {
-	const [skills, setSkills] = useState([]);
-	const [imageUrl, setImageUrl] = useState("");
-
-	const [visible, setVisible] = useState(false);
+	const [route, setRoute] = useState(() => getCurrentRoute());
 	const [language, setLanguage] = useState("ES");
-	const translations =
-		language === "ES"
-			? translationES
-			: language === "EN"
-			? translationEN
-			: translationPR;
+	const [resume, setResume] = useState(defaultResume);
+	const [notice, setNotice] = useState("");
+	const [token, setToken] = useState(() => loadToken());
+	const [authStatus, setAuthStatus] = useState(() => (loadToken() ? "checking" : "guest"));
+	const [loginForm, setLoginForm] = useState({
+		email: "",
+		password: "",
+	});
+	const [loginError, setLoginError] = useState("");
+	const [isSubmittingLogin, setIsSubmittingLogin] = useState(false);
+	const [adminResume, setAdminResume] = useState(() => cloneResume(defaultResume));
+	const [selectedLocale, setSelectedLocale] = useState("ES");
+	const [saveState, setSaveState] = useState({
+		message: adminCopy.saveReady,
+		status: "idle",
+	});
 
-	const [experiences, setExperiences] = useState([]);
-	const [job, setJob] = useState("");
-	const [company, setCompany] = useState("");
-	const [time, setTime] = useState("");
-	const [content, setContent] = useState("");
+	useEffect(() => {
+		const syncRoute = () => setRoute(getCurrentRoute());
+		window.addEventListener("popstate", syncRoute);
 
-	const [experiencesS, setExperiencesS] = useState([]);
-	const [jobS, setJobS] = useState("");
-	const [companyS, setCompanyS] = useState("");
-	const [timeS, setTimeS] = useState("");
-	const [contentS, setContentS] = useState("");
+		return () => {
+			window.removeEventListener("popstate", syncRoute);
+		};
+	}, []);
 
-	const addSkill = () => {
-		if (imageUrl) {
-			setSkills([...skills, {img: imageUrl}]);
-			setImageUrl("");
+	useEffect(() => {
+		let cancelled = false;
+
+		async function loadPublicResume() {
+			try {
+				const response = await fetchResume();
+
+				if (cancelled) {
+					return;
+				}
+
+				setResume(response.data ?? defaultResume);
+				setNotice("");
+			} catch {
+				if (cancelled) {
+					return;
+				}
+
+				setResume(defaultResume);
+				setNotice(
+					"Mostrando contenido local de respaldo porque la API del CV no respondió."
+				);
+			}
+		}
+
+		loadPublicResume();
+
+		return () => {
+			cancelled = true;
+		};
+	}, []);
+
+	useEffect(() => {
+		if (!token) {
+			setAuthStatus("guest");
+
+			if (route === ROUTES.admin) {
+				goTo(ROUTES.login, true);
+				setRoute(ROUTES.login);
+			}
+
+			return;
+		}
+
+		let cancelled = false;
+		setAuthStatus("checking");
+
+		fetchCurrentUser(token)
+			.then(() => {
+				if (cancelled) {
+					return;
+				}
+
+				setAuthStatus("authenticated");
+			})
+			.catch(() => {
+				if (cancelled) {
+					return;
+				}
+
+				clearToken();
+				setToken(null);
+				setAuthStatus("guest");
+
+				if (route === ROUTES.admin) {
+					goTo(ROUTES.login, true);
+					setRoute(ROUTES.login);
+				}
+			});
+
+		return () => {
+			cancelled = true;
+		};
+	}, [route, token]);
+
+	useEffect(() => {
+		if (authStatus !== "authenticated" || !token) {
+			return;
+		}
+
+		let cancelled = false;
+
+		fetchAdminResume(token)
+			.then((response) => {
+				if (cancelled) {
+					return;
+				}
+
+				const nextResume = response.data ?? defaultResume;
+				setAdminResume(cloneResume(nextResume));
+				setResume(nextResume);
+			})
+			.catch((error) => {
+				if (cancelled) {
+					return;
+				}
+
+				setSaveState({
+					message: error.message,
+					status: "error",
+				});
+			});
+
+		return () => {
+			cancelled = true;
+		};
+	}, [authStatus, token]);
+
+	useEffect(() => {
+		if (route === ROUTES.login && authStatus === "authenticated") {
+			goTo(ROUTES.admin, true);
+			setRoute(ROUTES.admin);
+		}
+	}, [authStatus, route]);
+
+	const handleLoginChange = (field, value) => {
+		setLoginForm((current) => ({
+			...current,
+			[field]: value,
+		}));
+	};
+
+	const handleLoginSubmit = async (event) => {
+		event.preventDefault();
+		setIsSubmittingLogin(true);
+		setLoginError("");
+
+		try {
+			const response = await login(loginForm);
+			saveToken(response.token);
+			setToken(response.token);
+			setAuthStatus("authenticated");
+			goTo(ROUTES.admin, true);
+			setRoute(ROUTES.admin);
+			setLoginForm({email: "", password: ""});
+		} catch (error) {
+			setLoginError(error.message);
+		} finally {
+			setIsSubmittingLogin(false);
 		}
 	};
 
-	const toggleVisible = () => {
-		setVisible(!visible);
+	const handleLogout = () => {
+		clearToken();
+		setToken(null);
+		setAdminResume(cloneResume(resume));
+		setSaveState({
+			message: adminCopy.saveReady,
+			status: "idle",
+		});
+		goTo(ROUTES.home, true);
+		setRoute(ROUTES.home);
 	};
 
-	const addExperience = () => {
-		if (job && company && time && content) {
-			setExperiences([...experiences, {job, company, time, content}]);
-			setJob("");
-			setCompany("");
-			setTime("");
-			setContent("");
-		} else {
-			console.error("Por favor, ingrese todos los valores requeridos.");
+	const handleSave = async () => {
+		if (!token) {
+			return;
+		}
+
+		setSaveState({
+			message: adminCopy.saving,
+			status: "saving",
+		});
+
+		try {
+			const response = await updateResume(token, adminResume);
+			const nextResume = response.data ?? adminResume;
+			setAdminResume(cloneResume(nextResume));
+			setResume(nextResume);
+			setSaveState({
+				message: adminCopy.saveSuccess,
+				status: "saved",
+			});
+		} catch (error) {
+			setSaveState({
+				message: error.message || adminCopy.saveError,
+				status: "error",
+			});
 		}
 	};
 
-	const addStudy = () => {
-		if (jobS && companyS && timeS && contentS) {
-			setExperiencesS([...experiencesS, {jobS, companyS, timeS, contentS}]);
-			setJobS("");
-			setCompanyS("");
-			setTimeS("");
-			setContentS("");
-		} else {
-			console.error("Por favor, ingrese todos los valores requeridos.");
-		}
+	const handleDirty = () => {
+		setSaveState((current) => {
+			if (current.status === "saving") {
+				return current;
+			}
+
+			return {
+				message: adminCopy.saveReady,
+				status: "idle",
+			};
+		});
 	};
+
+	const handleBackToCv = () => {
+		goTo(ROUTES.home);
+		setRoute(ROUTES.home);
+	};
+
+	if (route === ROUTES.login) {
+		return (
+			<LoginScreen
+				isSubmitting={isSubmittingLogin}
+				loginError={loginError}
+				loginForm={loginForm}
+				onChange={handleLoginChange}
+				onSubmit={handleLoginSubmit}
+			/>
+		);
+	}
+
+	if (route === ROUTES.admin) {
+		if (authStatus !== "authenticated") {
+			return (
+				<div className="auth-shell">
+					<div className="paper-noise" aria-hidden="true" />
+					<section className="auth-card">
+						<span className="hero-label">Acceso</span>
+						<h1>Verificando acceso</h1>
+						<p>Comprobando la sesión antes de mostrar el panel.</p>
+					</section>
+				</div>
+			);
+		}
+
+		return (
+			<AdminDashboard
+				adminResume={adminResume}
+				onBackToCv={handleBackToCv}
+				onDirty={handleDirty}
+				onLogout={handleLogout}
+				onSave={handleSave}
+				saveState={saveState}
+				selectedLocale={selectedLocale}
+				setAdminResume={setAdminResume}
+				setSelectedLocale={setSelectedLocale}
+			/>
+		);
+	}
 
 	return (
-		<>
-			<div className="page-content">
-				<div className="container">
-					<div className="cover shadow-lg bg-white">
-						<div className="cover-bg p-3 p-lg-4 text-white">
-							<div className="row">
-								<div className="col-lg-4 col-md-5">
-									<div className="avatar hover-effect shadow-lg p-1">
-										<img
-											src="https://raw.githubusercontent.com/kevinvillajim/CV/main/images/fotoCvi.png"
-											height="160"
-											className="shadow-lg bg-white object-cover"
-										/>
-									</div>
-								</div>
-								<div className="col-lg-8 col-md-7 text-center text-md-start">
-									<h2 className="h1 mt-2">Kevin Villacreses</h2>
-									<p>{translations.titleDescription}</p>
-									<div className="d-flex justify-content-between align-items-center">
-										<div>
-											<a
-												href="https://kevinvillajim.github.io/Portfolio/"
-												title="Mi Portfolio"
-												target="_blank"
-												rel="noreferrer"
-												className="btn btn-outline-dark rounded-pill px-2 py-2 me-2 border-white"
-											>
-												<img
-													src="https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/PF.png"
-													height="30px"
-													alt="Portfolio Icon"
-												/>
-											</a>
-											<a
-												href="https://github.com/kevinvillajim"
-												title="Github"
-												target="_blank"
-												rel="noreferrer"
-												className="btn btn-outline-dark rounded-pill px-2 py-2 me-2 border-white"
-											>
-												<img
-													src="https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/GH.svg"
-													height="30px"
-													alt="GitHub Icon"
-												/>
-											</a>
-										</div>
-										<div>
-											<button
-												className="btn btn-outline-dark rounded-pill px-2 py-2 me-2 border-white text-white"
-												onClick={() => {
-													setLanguage(
-														language === "ES"
-															? "EN"
-															: language === "EN"
-															? "PR"
-															: "ES"
-													);
-												}}
-											>
-												{language === "ES" ? (
-													<img
-														title="Cambia de Idioma"
-														src="https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/ES.png"
-														height="45px"
-														alt="ES Language"
-													/>
-												) : language === "EN" ? (
-													<img
-														title="Change the language"
-														src="https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/EN.png"
-														height="45px"
-														alt="EN Language"
-													/>
-												) : (
-													<img
-														title="Troca o idioma"
-														src="https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/PR.png"
-														height="45px"
-														alt="PR Language"
-													/>
-												)}
-											</button>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div className="about-section pt-4 px-3 px-lg-4 mt-1">
-							<div className="row">
-								<div className="col-md-6">
-									<h2 className="h3 mb-3">{translations.titleMe}</h2>
-									<p>{translations.me}</p>
-								</div>
-								<div className="col-md-5 offset-md-1">
-									<div className="row mt-2">
-										<InfoPrint proper={translations.titleAge} answer="28" />
-										<InfoPrint
-											proper="Email:"
-											answer="kevinvillajim@hotmail.com"
-										/>
-										<InfoPrint
-											proper={translations.titleTelephone}
-											answer="+593 963 368 896"
-										/>
-										<InfoPrint
-											proper={translations.titleAddress}
-											answer="Ferroviaria, Quito, Ecuador"
-										/>
-									</div>
-								</div>
-							</div>
-						</div>
-						<hr className="d-print-none" />
-						<div className="skills-section px-3 px-lg-4">
-							<h2 className="h3 mb-3">{translations.titleProfesionalSkills}</h2>
-							<div className="row">
-								<SkillsImg
-									img={[
-										"https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/HTML5.png",
-										"https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/CSS.png",
-										"https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/JS.png",
-										"https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/PHP.png",
-										"https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/PY.png",
-										"https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/C%23.svg",
-										"https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/NODE.png",
-										"https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/BS.png",
-										"https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/REACT.png",
-										"https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/WP.png",
-										"https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/MYSQL.png",
-										"https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/PSQL.png",
-										"https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/MDB.png",
-										"https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/TW.svg",
-										"https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/LV.png",
-										"https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/GH.png",
-										"https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/FIGMA.png",
-									]}
-									title={[
-										"HTML",
-										"CSS",
-										"Javascript",
-										"PHP",
-										"Python",
-										"C#",
-										"NodeJS",
-										"Bootstrap",
-										"React",
-										"Wordpress",
-										"MySQL",
-										"PostgreSQL",
-										"MongoDB",
-										"Tailwind",
-										"Laravel",
-										"GitHub",
-										"Figma",
-									]}
-								/>
-								<SkillsImg
-									img={[
-										"https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/PS.png",
-										"https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/ILL.png",
-										"https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/PP.png",
-										"https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/SKU.png",
-										"https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/AC.png",
-										"https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/ACAD.webp",
-										"https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/PB.png",
-										"https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/FL.png",
-									]}
-									title={[
-										"Photoshop",
-										"Illustrador",
-										"PremierePro",
-										"SketchUp",
-										"ArchiCAD",
-										"AutoCAD",
-										"PolyBoard",
-										"FLStudio",
-									]}
-								/>
-								{skills.map((item, index) => (
-									<SkillsImg title={[item.title]} key={index} img={[item.img]} />
-								))}
-								<button
-									className={`btn-add ${visible ? "active" : ""}`}
-									onClick={toggleVisible}
-								>
-									<img
-										src="https://www.svgrepo.com/show/2087/plus.svg"
-										height="20px"
-										alt="Plus Icon"
-									/>
-								</button>
-								<div
-									id="addSkills"
-									style={{display: visible ? "inline" : "none"}}
-								>
-									<input
-										className="form-control mt-3"
-										type="text"
-										placeholder={translations.placeholderSkill}
-										value={imageUrl}
-										onChange={(e) => setImageUrl(e.target.value)}
-									></input>
-									<button onClick={addSkill} className="btn btn-primary mt-2 ">
-										{translations.buttonSkill}
-									</button>
-								</div>
-							</div>
-						</div>
-						<hr className="d-print-none" />
-						<div className="work-experience-section px-3 px-lg-4">
-							<h2 className="h3 mb-4">{translations.titleExperience}</h2>
-							<div className="timeline">
-								<ExpCards
-									color="primary"
-									job={translations.firstJob}
-									company={translations.firstCompany}
-									time={translations.firstTime}
-									content={translations.firstContent}
-								/>
-								<ExpCards
-									color="primary"
-									job={translations.secondJob}
-									company={translations.secondCompany}
-									time={translations.secondTime}
-									content={translations.secondContent}
-								/>
-								<ExpCards
-									color="primary"
-									job={translations.thirdJob}
-									company={translations.thirdCompany}
-									time={translations.thirdTime}
-									content={translations.thirdContent}
-								/>
-								<ExpCards
-									color="primary"
-									job={translations.fourthJob}
-									company={translations.fourthCompany}
-									time={translations.fourthTime}
-									content={translations.fourthContent}
-								/>
-								<ExpCards
-									color="primary"
-									job={translations.fifthJob}
-									company={translations.fifthCompany}
-									time={translations.fifthTime}
-									content={translations.fifthContent}
-								/>
-								{experiences.map((item, index) => (
-									<ExpCards
-										key={index}
-										color="primary"
-										job={item.job}
-										company={item.company}
-										time={item.time}
-										content={item.content}
-									/>
-								))}
-								<button
-									className={`btn-add ${visible ? "active" : ""}`}
-									onClick={toggleVisible}
-								>
-									<img
-										src="https://www.svgrepo.com/show/2087/plus.svg"
-										height="20px"
-										alt="Plus Icon"
-									/>
-								</button>
-								<div
-									id="addExperience"
-									style={{display: visible ? "inline" : "none"}}
-								>
-									<input
-										className="form-control mt-2"
-										type="text"
-										required
-										placeholder={translations.placeholderJob}
-										value={job}
-										onChange={(e) => setJob(e.target.value)}
-									></input>
-									<input
-										className="form-control mt-2"
-										type="text"
-										required
-										placeholder={translations.placeholderCompany}
-										value={company}
-										onChange={(e) => setCompany(e.target.value)}
-									></input>
-									<input
-										className="form-control mt-2"
-										type="text"
-										required
-										placeholder={translations.placeholderTime}
-										value={time}
-										onChange={(e) => setTime(e.target.value)}
-									></input>
-									<input
-										className="form-control mt-2"
-										type="text"
-										required
-										placeholder={translations.placeholderContent}
-										value={content}
-										onChange={(e) => setContent(e.target.value)}
-									></input>
-									<button
-										onClick={addExperience}
-										className="btn btn-primary mt-2 "
-									>
-										{translations.buttonExperience}
-									</button>
-								</div>
-							</div>
-						</div>
-						<hr className="d-print-none" />
-						<div className="page-break"></div>
-						<div className="education-section px-3 px-lg-4 pb-4">
-							<h2 className="h3 mb-4">{translations.titleEducation}</h2>
-							<div className="timeline">
-								<ExpCards
-									color="success"
-									job={translations.fifthStudy}
-									company={translations.fifthInstitution}
-									time={translations.fifthSTime}
-									content=""
-								/>
-								<ExpCards
-									color="success"
-									job={translations.firstStudy}
-									company={translations.firstInstitution}
-									time={translations.firstSTime}
-									content=""
-								/>
-								<ExpCards
-									color="success"
-									job={translations.secondStudy}
-									company={translations.secondInstitution}
-									time={translations.secondSTime}
-									content={
-										<img
-											src="https://raw.githubusercontent.com/kevinvillajim/CV/main/images/icons/CISCO.png"
-											height="100px"
-											alt="Cisco Certification"
-										/>
-									}
-								/>
-								<ExpCards
-									color="success"
-									job={translations.thirdStudy}
-									company={translations.thirdInstitution}
-									time={translations.thirdSTime}
-									content=""
-								/>
-								<ExpCards
-									color="success"
-									job={translations.fourthStudy}
-									company={translations.fourthInstitution}
-									time={translations.fourthSTime}
-									content=""
-								/>
-								{experiencesS.map((item, index) => (
-									<ExpCards
-										key={index}
-										color="success"
-										job={item.jobS}
-										company={item.companyS}
-										time={item.timeS}
-										content={item.contentS}
-									/>
-								))}
-								<button
-									id="btnExp"
-									className={`btn-add ${visible ? "active" : ""}`}
-									onClick={toggleVisible}
-								>
-									<img
-										src="https://www.svgrepo.com/show/2087/plus.svg"
-										height="20px"
-										alt="Plus Icon"
-									/>
-								</button>
-								<div
-									id="addStudy"
-									style={{display: visible ? "inline" : "none"}}
-								>
-									<input
-										className="form-control mt-2"
-										type="text"
-										required
-										placeholder={translations.placeholderTitle}
-										value={jobS}
-										onChange={(e) => setJobS(e.target.value)}
-									></input>
-									<input
-										className="form-control mt-2"
-										type="text"
-										required
-										placeholder={translations.placeholderInstitution}
-										value={companyS}
-										onChange={(e) => setCompanyS(e.target.value)}
-									></input>
-									<input
-										className="form-control mt-2"
-										type="text"
-										required
-										placeholder={translations.placeholderSTime}
-										value={timeS}
-										onChange={(e) => setTimeS(e.target.value)}
-									></input>
-									<input
-										className="form-control mt-2"
-										type="text"
-										placeholder={translations.placeholderSContent}
-										value={contentS}
-										onChange={(e) => setContentS(e.target.value)}
-									></input>
-									<button
-										id="btnStud"
-										onClick={addStudy}
-										className="btn btn-primary mt-2 "
-									>
-										{translations.buttonStudy}
-									</button>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</>
+		<PublicResume
+			language={language}
+			notice={notice}
+			resume={resume}
+			setLanguage={setLanguage}
+		/>
 	);
 }
 
